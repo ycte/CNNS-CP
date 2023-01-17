@@ -1,0 +1,31 @@
+program.use_edabit(True)
+from util import if_else
+from Compiler import types
+ 
+def maopao(a):
+	print_ln("hello: %s", a.reveal())
+	n = len(a)
+	@for_range(n)
+	def _(i):
+		@for_range(n)
+		def _(j):
+			@if_((a[i] > a[j]).reveal())
+			def _():
+				# print_ln("!!!")
+				tmp = a[i]
+				a[i] = a[j]
+				a[j] = tmp
+	return a
+ 
+n = 2
+ 
+a = Array(n, sfix)
+ 
+@for_range_opt(n)
+def _(i):
+    a[i] = sfix.get_input_from(i)
+ 
+d = maopao(a)
+print_str("%s", d.reveal())
+ 
+print_ln('Data receive success !!')

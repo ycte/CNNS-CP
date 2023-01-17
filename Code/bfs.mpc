@@ -1,0 +1,73 @@
+program.use_edabit(True)
+from util import if_else
+from Compiler import types
+
+def bfs(M, V, n):
+    i2 = Array(1,sint)
+    ii = 0
+    @for_range(n)
+    def _(i):
+        i2[0] = 0
+        mindis = n
+        @for_range(n)
+        def _(i1):
+            @if_(V[3*i1].reveal()==1)
+            def _():
+                @if_(V[3*i1+1].reveal()<mindis)
+                def _():
+                    mindis = V[3*i1+1].reveal()
+                    i2[0] = i1
+        # print_str(" %s\n",i2[0].reveal())
+        # t = sint(0)
+        # iii = str(i2.get(t.reveal()))
+        # print_ln("%s",iii)
+        # ii = int('0')
+        @for_range(n)
+        def _(j):
+            @if_(M[i2[0].reveal()*n+j].reveal()==1)
+            def _():
+                @if_(V[3*j].reveal()==0) 
+                def _():
+                   V[3*j] = 1
+                   V[3*j+1] = V[3*i2[0].reveal()+1] + 1
+                   V[3*j+2] = i2[0].reveal()
+        #print_str("%s %s %s %s %s\n",i1,i2[0].reveal(),V[3*ii].reveal(),V[3*ii+1].reveal(),V[3*ii+2].reveal())
+        V[3*i2[0].reveal()] = 2
+        #print_str("%s %s %s %s %s\n",i1,i2[0].reveal(),V[3*i2[0]].reveal(),V[3*i2[0]+1].reveal(),V[3*i2[0]+2].reveal())
+
+n = 5
+M = Array(n*n, sfix)
+V = Array(n*3, sfix)
+@for_range_opt(n)
+def _(i):
+    @for_range_opt(n)
+    def _(j):
+        M[i*n+j] = sfix.get_input_from(i)
+
+@for_range(n)
+def _(i):
+        V[i*3] = 0
+        V[i*3+1] = 2048
+        V[i*3+2] = 2048
+V[0] = 1
+V[1] = 0
+
+@for_range(n)
+def _(i):
+        @if_(M[i].reveal()==1)
+        def _():
+            V[i*3+1] = 1
+
+# print_str("%s\n", M.reveal())
+# print_str("%s\n", V.reveal())
+
+bfs(M,V,n)
+
+# print_str("%s", V.reveal())
+@for_range(n)
+def _(i):
+    print_ln_to(i,"Distance to s0:%s Parent node:%s",V[i*3+1].reveal(),V[i*3+2].reveal())
+
+        
+
+
